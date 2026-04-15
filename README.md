@@ -76,7 +76,7 @@ Keep the arm powered off or lifted away from a hand until the printed dry-run an
 
 ## Vision Model
 
-The uploaded Kaggle notebook defines a PyTorch U-Net for binary nail segmentation. `vision.py` mirrors that model structure so one can train on your laptop, save the weights, copy them to the Raspberry Pi, and run inference.
+The uploaded Kaggle notebook defines a PyTorch U-Net for binary nail segmentation. `vision.py` mirrors that model structure so one can train on your laptop, save the weights, copy them to the Raspberry Pi, and run inference. This script referrenced https://www.kaggle.com/code/wadzim/nails-segmentation-from-scratch-unet#Model-Architecture
 
 Expected model path:
 
