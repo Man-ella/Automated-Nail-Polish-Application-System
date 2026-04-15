@@ -115,12 +115,10 @@ Minimum wiring concept:
 
 - Battery/buck or BEC powers the servo rail.
 - PCA9685 V+ connects to servo power.
-- PCA9685 logic VCC connects to Pi 3.3 V.
+- PCA9685 logic VCC connects to Pi 5V.
 - Pi GND, PCA9685 GND, and servo power GND must be common.
 - Pi I2C SDA/SCL connects to PCA9685 SDA/SCL.
 - MPR121 connects over I2C too, usually at a different address.
-
-Add fusing, strain relief, and an emergency power cutoff before testing near a person.
 
 ## Next Steps
 
