@@ -4,6 +4,7 @@ Examples:
     python servo_test.py --list
     python servo_test.py --servo base --angle 110 --live
     python servo_test.py --servo shoulder --sweep 70 120 --live
+    python servo_test.py --angles 90 100 110 90 --live
     python servo_test.py --pose 120 0 80 --tool-angle -90 --live
     python servo_test.py --home --live
 """
@@ -55,6 +56,25 @@ def move_home(dry_run: bool) -> None:
         robot.home()
 
 
+def move_raw_angles(
+    base: float,
+    shoulder: float,
+    elbow: float,
+    wrist: float,
+    dry_run: bool,
+) -> None:
+    hardware = build_live_hardware(dry_run)
+    angles = {
+        "base": base,
+        "shoulder": shoulder,
+        "elbow": elbow,
+        "wrist": wrist,
+    }
+    print(f"Moving to raw servo angles: {angles}")
+    with RobotController(hardware=hardware, paint=CONFIG.paint) as robot:
+        robot.move_servos(angles, delay_s=1.0)
+
+
 def move_to_pose(x_mm: float, y_mm: float, z_mm: float, tool_angle_deg: float, dry_run: bool) -> None:
     hardware = build_live_hardware(dry_run)
     pose = Pose(x_mm=x_mm, y_mm=y_mm, z_mm=z_mm, tool_angle_deg=tool_angle_deg)
@@ -76,6 +96,13 @@ def parse_args() -> argparse.Namespace:
         type=float,
         metavar=("START", "END"),
         help="Sweep a servo through two endpoint angles.",
+    )
+    parser.add_argument(
+        "--angles",
+        nargs=4,
+        type=float,
+        metavar=("BASE", "SHOULDER", "ELBOW", "WRIST"),
+        help="Move directly to raw servo angles without inverse kinematics.",
     )
     parser.add_argument(
         "--pose",
@@ -108,6 +135,9 @@ def main() -> None:
             list_servos()
         elif args.home:
             move_home(dry_run=dry_run)
+        elif args.angles:
+            base, shoulder, elbow, wrist = args.angles
+            move_raw_angles(base, shoulder, elbow, wrist, dry_run=dry_run)
         elif args.pose:
             x_mm, y_mm, z_mm = args.pose
             move_to_pose(x_mm, y_mm, z_mm, args.tool_angle, dry_run=dry_run)
@@ -118,7 +148,7 @@ def main() -> None:
             move_single_servo(args.servo, args.angle, dry_run=dry_run)
         else:
             raise SystemExit(
-                "Choose one action: --list, --home, --pose X Y Z, "
+                "Choose one action: --list, --home, --angles B S E W, --pose X Y Z, "
                 "--servo NAME --angle A, or --servo NAME --sweep START END"
             )
     except KinematicsError as exc:
