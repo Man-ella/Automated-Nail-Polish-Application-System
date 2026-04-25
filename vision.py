@@ -69,16 +69,16 @@ if nn is not None:
     class UNet(nn.Module):
         def __init__(self, in_channels: int = 3, num_classes: int = 1):
             super().__init__()
-            self.enc_block1 = Encoder(in_channels, 64)
-            self.enc_block2 = Encoder(64, 128)
-            self.enc_block3 = Encoder(128, 256)
-            self.enc_block4 = Encoder(256, 512)
-            self.bottleneck = TwoConvLayers(512, 1024)
-            self.dec_block1 = Decoder(1024, 512)
-            self.dec_block2 = Decoder(512, 256)
-            self.dec_block3 = Decoder(256, 128)
-            self.dec_block4 = Decoder(128, 64)
-            self.output = nn.Conv2d(64, num_classes, kernel_size=1)
+            self.enc_block1 = Encoder(in_channels, 32)
+            self.enc_block2 = Encoder(32, 64)
+            self.enc_block3 = Encoder(64, 128)
+            self.enc_block4 = Encoder(128, 256)
+            self.bottleneck = TwoConvLayers(256, 512)
+            self.dec_block1 = Decoder(512, 256)
+            self.dec_block2 = Decoder(256, 128)
+            self.dec_block3 = Decoder(128, 64)
+            self.dec_block4 = Decoder(64, 32)
+            self.output = nn.Conv2d(32, num_classes, kernel_size=1)
 
         def forward(self, x):
             x, skip1 = self.enc_block1(x)
@@ -112,7 +112,7 @@ class NailSegmenter:
     def __init__(
         self,
         model_path: Path,
-        image_size: tuple[int, int] = (512, 512),
+        image_size: tuple[int, int] = (256, 256),
         threshold: float = 0.5,
         device: str | None = None,
         allow_fallback: bool = True,
@@ -150,7 +150,8 @@ class NailSegmenter:
         original_h, original_w = image_bgr.shape[:2]
         resized = cv2.resize(image_bgr, self.image_size)
         rgb = cv2.cvtColor(resized, cv2.COLOR_BGR2RGB).astype(np.float32) / 255.0
-        tensor = torch.from_numpy(rgb).permute(2, 0, 1).unsqueeze(0).to(self.device)
+        rgb = (rgb - np.array([0.485, 0.456, 0.406])) / np.array([0.229, 0.224, 0.225])
+        tensor = torch.from_numpy(rgb.astype(np.float32)).permute(2, 0, 1).unsqueeze(0).to(self.device)
 
         with torch.no_grad():
             logits = self.model(tensor)
