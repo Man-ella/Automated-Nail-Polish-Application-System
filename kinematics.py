@@ -72,8 +72,9 @@ def inverse_kinematics(
 
     link1 = geometry.link1_mm
     link2 = geometry.link2_mm
+    " computes the straight-line distance from shoulder to wrist"
     reach = hypot(wrist_r_mm, wrist_z_mm)
-
+    "Then checks if a 2-link arm can even reach that point:"
     if reach > link1 + link2 or reach < abs(link1 - link2):
         raise KinematicsError(
             f"Target {pose} is unreachable. Wrist reach is {reach:.1f} mm "
