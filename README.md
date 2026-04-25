@@ -40,6 +40,7 @@ The Raspberry Pi captures an image, segments the nail, converts the nail mask in
 | `control.py` | PCA9685/ServoKit robot control with dry-run mode |
 | `servo_test.py` | Simple Raspberry Pi bring-up script for individual servo and pose testing |
 | `pose_test.py` | Interactive inverse-kinematics pose tester for cartesian arm moves |
+| `multi_pose_test.py` | Runs the arm through a small sequence of test poses |
 | `sensors.py` | MPR121 capacitive sensor wrapper for future Z calibration |
 | `config.py` | Servo channels, arm geometry, workspace calibration, and paint settings |
 | `train_unet.py` | Minimal model export skeleton for saving a PyTorch U-Net state dict |
@@ -139,6 +140,12 @@ Or send one pose directly:
 
 ```bash
 python pose_test.py --x 120 --y 0 --z 80 --tool-angle -90 --live
+```
+
+Run a simple six-pose IK sequence:
+
+```bash
+python multi_pose_test.py --live
 ```
 
 ## Vision Model
