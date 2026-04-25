@@ -39,9 +39,11 @@ The Raspberry Pi captures an image, segments the nail, converts the nail mask in
 | `kinematics.py` | First-pass inverse kinematics for base, shoulder, elbow, and wrist |
 | `control.py` | PCA9685/ServoKit robot control with dry-run mode |
 | `servo_test.py` | Simple Raspberry Pi bring-up script for individual servo and pose testing |
+| `pose_test.py` | Interactive inverse-kinematics pose tester for cartesian arm moves |
 | `sensors.py` | MPR121 capacitive sensor wrapper for future Z calibration |
 | `config.py` | Servo channels, arm geometry, workspace calibration, and paint settings |
 | `train_unet.py` | Minimal model export skeleton for saving a PyTorch U-Net state dict |
+| `train_nail_unet_colab.ipynb` | Google Colab notebook for full training, validation, testing, and model export |
 
 ## Install
 
@@ -126,6 +128,18 @@ python servo_test.py --pose 120 0 80 --tool-angle -90 --live
 ```
 
 For first hardware tests, detach the syringe load, keep the motion range small, and test one servo at a time.
+
+Try the dedicated interactive IK pose tester:
+
+```bash
+python pose_test.py --interactive --live
+```
+
+Or send one pose directly:
+
+```bash
+python pose_test.py --x 120 --y 0 --z 80 --tool-angle -90 --live
+```
 
 ## Vision Model
 

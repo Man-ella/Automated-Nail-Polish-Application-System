@@ -9,3 +9,5 @@ models/*.pth
 *.png
 *.mp4
 .env
+NailSegmentationDatasetV2/
+NailSegmentationDatasetV2.zip
