@@ -332,6 +332,12 @@ The notebook in [notebooks/](notebooks/) trains and validates that model:
 
 - `train_nail_unet_colab.ipynb` is configured for Google Colab and Google Drive.
 
+The current training workflow uses the Kaggle
+[Nail Segmentation Dataset](https://www.kaggle.com/datasets/muhammadhammad261/nail-segmentation-dataset/data)
+by Muhammad Hammad. Download it from Kaggle, extract it outside the Git-tracked
+source tree, and arrange it into the split folder layout below before running
+the Colab notebook.
+
 Both expect a split dataset:
 
 ```text
