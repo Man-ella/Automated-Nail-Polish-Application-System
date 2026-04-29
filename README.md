@@ -330,15 +330,15 @@ models/nail_unet.pt
 
 The notebook in [notebooks/](notebooks/) trains and validates that model:
 
-- `train_nail_unet_colab.ipynb` is configured for Google Colab and Google Drive.
+- `train_nail_unet_colab.ipynb` is configured for Google Colab.
 
 The current training workflow uses the Kaggle
 [Nail Segmentation Dataset](https://www.kaggle.com/datasets/muhammadhammad261/nail-segmentation-dataset/data)
-by Muhammad Hammad. Download it from Kaggle, extract it outside the Git-tracked
-source tree, and arrange it into the split folder layout below before running
-the Colab notebook.
+by Muhammad Hammad. Download it from Kaggle as a `.zip`, run the notebook upload
+cell, and choose the zip file directly from your computer. The notebook extracts
+it into `/content/nail_dataset_extracted/` and finds the split dataset folder.
 
-Both expect a split dataset:
+The uploaded zip should contain this split dataset layout:
 
 ```text
 NailSegmentationDatasetV2/
@@ -350,13 +350,13 @@ NailSegmentationDatasetV2/
   test/masks/
 ```
 
-After training, the notebook writes a deploy checkpoint to Google Drive:
+After training, the notebook writes a deploy checkpoint inside the Colab session:
 
 ```text
-/content/drive/MyDrive/nail_unet_outputs/nail_unet.pt
+/content/nail_unet_outputs/nail_unet.pt
 ```
 
-Copy that file into the local repo as:
+Download that file from the Colab file browser and place it into the local repo as:
 
 ```text
 models/nail_unet.pt
