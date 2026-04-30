@@ -1,0 +1,135 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * NailBot palette — derived from the project presentation deck.
+ *  blush      #F3D5DA   soft canvas background
+ *  pink       #E8BFC6   primary surface accent
+ *  rose       #D88FA0   action / chart highlight
+ *  mauve      #A85B6E   mid pink, secondary action
+ *  burgundy   #5C2A37   headlines & primary CTA
+ *  plum       #2A0E1A   dark slab cards
+ *  cream      #E8DCC4   neutral accent / chip
+ */
+
+@layer base {
+  :root {
+    --background: 350 60% 98%;
+    --foreground: 340 35% 12%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 340 35% 12%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 340 35% 12%;
+
+    --primary: 340 39% 26%;            /* burgundy */
+    --primary-foreground: 350 60% 98%;
+
+    --secondary: 348 50% 92%;          /* light pink chip */
+    --secondary-foreground: 340 39% 26%;
+
+    --muted: 350 40% 95%;
+    --muted-foreground: 340 12% 40%;
+
+    --accent: 344 51% 70%;             /* rose */
+    --accent-foreground: 340 39% 18%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 152 56% 38%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 36 92% 50%;
+    --warning-foreground: 36 70% 12%;
+
+    --border: 348 30% 88%;
+    --input: 348 30% 88%;
+    --ring: 344 51% 60%;
+
+    --radius: 0.75rem;
+
+    /* Brand palette */
+    --nailbot-blush: 348 60% 90%;
+    --nailbot-pink: 348 50% 83%;
+    --nailbot-rose: 344 51% 70%;
+    --nailbot-mauve: 344 30% 50%;
+    --nailbot-burgundy: 340 39% 26%;
+    --nailbot-plum: 340 50% 11%;
+    --nailbot-cream: 38 35% 84%;
+  }
+
+  .dark {
+    --background: 340 40% 7%;
+    --foreground: 350 30% 96%;
+
+    --card: 340 40% 11%;
+    --card-foreground: 350 30% 96%;
+
+    --popover: 340 40% 11%;
+    --popover-foreground: 350 30% 96%;
+
+    --primary: 348 50% 83%;
+    --primary-foreground: 340 39% 18%;
+
+    --secondary: 340 30% 18%;
+    --secondary-foreground: 350 30% 96%;
+
+    --muted: 340 30% 14%;
+    --muted-foreground: 348 20% 70%;
+
+    --accent: 344 51% 60%;
+    --accent-foreground: 350 30% 96%;
+
+    --destructive: 0 62% 45%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 152 56% 38%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 36 92% 50%;
+    --warning-foreground: 36 70% 12%;
+
+    --border: 340 30% 22%;
+    --input: 340 30% 22%;
+    --ring: 344 51% 60%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  /* Subtle pink wash that fades into the canvas. */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    background:
+      radial-gradient(80% 60% at 100% 0%, hsl(var(--nailbot-pink) / 0.45), transparent 60%),
+      radial-gradient(60% 50% at 0% 100%, hsl(var(--nailbot-blush) / 0.6), transparent 70%);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: hsl(var(--border));
+    border-radius: 999px;
+  }
+}
