@@ -1,9 +1,14 @@
 __pycache__/
 *.py[cod]
+.DS_Store
 .venv/
 venv/
 models/*.pt
 models/*.pth
+models/*.zip
+models/*.keras
+!models/nail_unet.pt
+models/NailSegmentationDatasetV2/
 *.jpg
 *.jpeg
 *.png
@@ -11,3 +16,6 @@ models/*.pth
 .env
 NailSegmentationDatasetV2/
 NailSegmentationDatasetV2.zip
+nail_unet_outputs/
+nail_unet_outputs*.zip
+*.tsbuildinfo
